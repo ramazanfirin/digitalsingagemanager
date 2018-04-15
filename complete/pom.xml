@@ -31,6 +31,69 @@
             <scope>test</scope>
         </dependency>
         <!-- end::tests[] -->
+        
+        <dependency>
+  <groupId>com.github.sarxos</groupId>
+  <artifactId>webcam-capture</artifactId>
+  <version>0.3.10</version>
+</dependency>
+
+<!--  <dependency> -->
+<!--             <groupId>com.innovatrics.iface</groupId> -->
+<!--             <artifactId>iface-connector-main</artifactId> -->
+<!--             <version>3.2.2.0</version> -->
+<!--             <scope>system</scope> -->
+<!-- 			<systemPath>${basedir}/lib/iface-connector-main-3.2.2.0.jar</systemPath> -->
+<!--         </dependency> -->
+<!-- <dependency> -->
+<!--             <groupId>com.innovatrics.commons</groupId> -->
+<!--             <artifactId>sdk-commons-main</artifactId> -->
+<!--             <version>1.1.7</version> -->
+<!--             <scope>system</scope> -->
+<!-- 			<systemPath>${basedir}/lib/sdk-commons-main-1.1.7.jar</systemPath> -->
+<!--         </dependency> -->
+        
+<!-- <dependency> -->
+<!--             <groupId>net.java.dev.jna</groupId> -->
+<!--             <artifactId>jna</artifactId> -->
+<!--             <version>4.1.0</version> -->
+<!--             <scope>system</scope> -->
+<!-- 			<systemPath>${basedir}/lib/jna-4.1.0.jar</systemPath> -->
+<!--         </dependency> -->
+
+
+ <dependency>
+            <groupId>com.innovatrics.iface</groupId>
+            <artifactId>iface-connector-main</artifactId>
+            <version>3.2.2.0</version>
+        </dependency>
+<dependency>
+            <groupId>com.innovatrics.commons</groupId>
+            <artifactId>sdk-commons-main</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        
+<!-- <dependency> -->
+<!--             <groupId>net.java.dev.jna</groupId> -->
+<!--             <artifactId>jna</artifactId> -->
+<!--             <version>4.1.0</version> -->
+<!--         </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/com.sun.jna/jna -->
+<dependency>
+    <groupId>com.sun.jna</groupId>
+    <artifactId>jna</artifactId>
+    <version>3.0.9</version>
+</dependency>
+
+
+
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+       <version>2.7.4</version>
+</dependency>
+        
     </dependencies>
 
     <properties>
