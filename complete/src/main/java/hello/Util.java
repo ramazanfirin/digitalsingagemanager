@@ -23,7 +23,7 @@ public class Util {
 		else if(!notifyDone)
 			return false;
 		else{
-			if(System.currentTimeMillis()-lastNotifyDate>20000){
+			if(System.currentTimeMillis()-lastNotifyDate>5000){
 				return true;
 			}else{
 				System.out.println("no need reset");

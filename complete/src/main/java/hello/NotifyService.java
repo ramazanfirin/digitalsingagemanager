@@ -36,7 +36,7 @@ public class NotifyService {
 		String result = ageEnum.toString()+"_"+gender.toString();
 		System.out.println(result);
 		
-		Map<String,String> playLists = getPlayLists();
+		Map<String,String> playLists = getPlayLists(result);
 		if(playLists.get(result)!=null)
 			startPlayList(playLists.get(result));
 		
@@ -148,17 +148,18 @@ public class NotifyService {
 		
 	}
 	
-	private Map<String,String> getPlayLists() throws IOException{
+	private Map<String,String> getPlayLists(String val) throws IOException{
 		Map<String,String> playListMap = new HashMap<String,String>();
-		String result = sendGET(BASE_URL+"/playlists");
+		String result = sendGET(BASE_URL+"/playlists/"+"FACE_RECOGNITION");
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode node = objectMapper.readValue(result, JsonNode.class);
-		ArrayNode array = (ArrayNode)node.get("data");
+		JsonNode data = (JsonNode)node.get("data");
+		ArrayNode array = (ArrayNode)data.get("assets");
 		for (int i = 0; i < array.size(); i++) {
-			JsonNode as = array.get(i);
-			ArrayNode assets = (ArrayNode)as.get("assets"); 
-			if(assets.size()>0){
-				playListMap.put(as.get("name").asText(), assets.get(0).get("filename").asText());
+			JsonNode asset = array.get(i);
+			String fileName = asset.get("filename").asText();
+			if(fileName.contains(val)){
+				playListMap.put(val, fileName);
 			}
 			
 			//playListMap.put(as.get("name").asText(), as.get("name").asText());
@@ -179,7 +180,7 @@ public class NotifyService {
 		notifyDone = true;
 	}
 	
-	@Scheduled(fixedRate = 20000)
+	@Scheduled(fixedRate = 5000)
 	public void resetPlaylist() throws IOException{
 		if(Util.needResetPlaylist(notifyDone,lastNotifyDate)){
 			String response  = sendPost(BASE_URL+"/play/playlists/"+"Reklam","STOP");
@@ -192,7 +193,7 @@ public class NotifyService {
 	
 	public static void main(String[] args) throws IOException {
 		NotifyService notifyService = new NotifyService();
-		Map<String,String> playListMap  = notifyService.getPlayLists();		
+		Map<String,String> playListMap  = notifyService.getPlayLists("dsd");		
 		System.out.println("bitti");
 	}
 
