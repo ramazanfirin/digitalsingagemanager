@@ -5,11 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,6 +24,7 @@ import com.github.sarxos.webcam.ds.buildin.WebcamDefaultDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
+import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
 import com.innovatrics.iface.Face;
 import com.innovatrics.iface.FaceHandler;
 import com.innovatrics.iface.IFace;
@@ -34,6 +36,8 @@ import com.innovatrics.iface.enums.Parameter;
 
 @Service
 public class CaptureService {
+	private final Logger log = LoggerFactory.getLogger(CaptureService.class);
+	
 	@Autowired
 	NotifyService notifyService;
 	
@@ -53,17 +57,20 @@ public class CaptureService {
 	}
 
 	// register custom composite driver
-	static {
-		Webcam.setDriver(new MyCompositeDriver());
-	}
+//	static {
+//		Webcam.setDriver(new MyCompositeDriver());
+//	}
+	
+//	static {
+//        Webcam.setDriver(new V4l4jDriver()); // this is important
+//    }
 	
 	public CaptureService() throws IFaceException, IOException {
 		super();
-		System.out.println("capture service created");
-		Dimension captureResolution = WebcamResolution.VGA.getSize(); // 640 x 480
-		Dimension displayResolution = WebcamResolution.QVGA.getSize(); // 340 x 240
-		
-		IpCamDeviceRegistry.register("Lignano", "http://192.168.1.132:8080/photo.jpg", IpCamMode.PULL);
+//				Dimension captureResolution = WebcamResolution.VGA.getSize(); // 640 x 480
+//		Dimension displayResolution = WebcamResolution.QVGA.getSize(); // 340 x 240
+//		
+//		IpCamDeviceRegistry.register("Lignano", "http://192.168.1.132:8080/photo.jpg", IpCamMode.PULL);
 		//Webcam webcam = Webcam.getDefault();
 		
 		webcam = Webcam.getWebcams().get(0);
@@ -91,8 +98,9 @@ public class CaptureService {
 	
 	@Scheduled(fixedRate = 1000)
 	public void captureFromCamera() throws IOException{
+		log.info("capture started");
 		if(!Util.needNotify(notifyService.getLastNotifyDate())){
-			System.out.println("no need notify");
+			log.info("no need capture");
 			return;
 		}
 		
@@ -103,10 +111,10 @@ public class CaptureService {
 		BufferedImage image  = webcam.getImage();
 		//ImageIO.write(image, "PNG", new File("/home/ramazan/webcamtest/phone"+System.currentTimeMillis()+".png"));
 		image = resize(image,960,1280);
-		System.out.println("capture edildi");
+//		log.info("capture compledted");
 		Face[] faces = faceHandler.detectFaces(convertToByteArray(image), minEyeDistance, maxEyeDistance, 3);
 		if(faces.length==0){
-			System.out.println("No Face Detected");
+			log.info("No Face Detected");
 			return;
 		}
 			
@@ -116,9 +124,12 @@ public class CaptureService {
 			Float age = face.getAttribute(FaceAttributeId.AGE);
 	        Float gender = face.getAttribute(FaceAttributeId.GENDER);
 	        long end = System.currentTimeMillis();
-	        System.out.println("age:"+age+",gender:"+gender+",duration="+(end-start));
+	        log.info("age:"+age+",gender:"+gender+",duration="+(end-start));
 	        notifyService.sendNotify(age, gender);
+	        break;
 		}
+		log.info("capture finished");
+		
 	}
 
 	

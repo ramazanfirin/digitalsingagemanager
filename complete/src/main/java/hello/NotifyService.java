@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,9 @@ import hello.enums.GenderEnum;
 @Service
 public class NotifyService {
 
-	final String BASE_URL = "http://192.168.1.35:8000/api";
+	private final Logger log = LoggerFactory.getLogger(NotifyService.class);
+	//final String BASE_URL = "http://192.168.1.35:8000/api";
+	final String BASE_URL = "http://192.168.43.143:8000/api";
 	long lastNotifyDate;
 	Boolean notifyDone=false;
 	
@@ -34,7 +38,7 @@ public class NotifyService {
 		GenderEnum gender = getGenderEnum(genderValue);
 		AgeEnum ageEnum = getAgeGroup(age);
 		String result = ageEnum.toString()+"_"+gender.toString();
-		System.out.println(result);
+//		System.out.println(result);
 		
 		Map<String,String> playLists = getPlayLists(result);
 		if(playLists.get(result)!=null)
@@ -80,7 +84,7 @@ public class NotifyService {
 		//con.setRequestProperty("User-Agent", USER_AGENT);
 		con.setRequestProperty("Authorization", "Basic " + authStringEnc);
 		int responseCode = con.getResponseCode();
-		System.out.println("GET Response Code :: " + responseCode);
+//		System.out.println("GET Response Code :: " + responseCode);
 		if (responseCode == HttpURLConnection.HTTP_OK) { // success
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));
@@ -93,10 +97,10 @@ public class NotifyService {
 			in.close();
 
 			// print result
-			System.out.println(response.toString());
+//			System.out.println(response.toString());
 			return response.toString();
 		} else {
-			System.out.println("GET request not worked");
+//			System.out.println("GET request not worked");
 			return null;
 		}
 
@@ -126,7 +130,7 @@ public class NotifyService {
         os.close();
 		
 		int responseCode = con.getResponseCode();
-		System.out.println("GET Response Code :: " + responseCode);
+//		System.out.println("GET Response Code :: " + responseCode);
 		if (responseCode == HttpURLConnection.HTTP_OK) { // success
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					con.getInputStream()));
@@ -139,10 +143,10 @@ public class NotifyService {
 			in.close();
 
 			// print result
-			System.out.println(response.toString());
+//			System.out.println(response.toString());
 			return response.toString();
 		} else {
-			System.out.println("GET request not worked");
+//			System.out.println("GET request not worked");
 			return null;
 		}
 		
@@ -175,7 +179,8 @@ public class NotifyService {
 //			String response2 = sendPost(BASE_URL+"/play/playlists/"+file,"START");
 //		play/files/play?file=asd
 		String response2 = sendPost(BASE_URL+"/play/files/play?file="+file,"sdasdasdasdas");
-		System.out.println("playlist started");
+//		System.out.println("playlist started");
+		log.info(file +" playing");
 		lastNotifyDate = System.currentTimeMillis();
 		notifyDone = true;
 	}
@@ -186,7 +191,8 @@ public class NotifyService {
 			String response  = sendPost(BASE_URL+"/play/playlists/"+"Reklam","STOP");
 			String response2 = sendPost(BASE_URL+"/play/playlists/"+"Reklam","START");
 			notifyDone = false;
-			System.out.println("playlist reset");
+//			System.out.println("playlist reset");
+			log.info("playlist reset");
 		}
 	}
 	
@@ -194,7 +200,7 @@ public class NotifyService {
 	public static void main(String[] args) throws IOException {
 		NotifyService notifyService = new NotifyService();
 		Map<String,String> playListMap  = notifyService.getPlayLists("dsd");		
-		System.out.println("bitti");
+//		System.out.println("bitti");
 	}
 
 	public long getLastNotifyDate() {

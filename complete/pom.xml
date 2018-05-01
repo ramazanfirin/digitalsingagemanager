@@ -44,6 +44,11 @@
 	<version>0.3.11</version>
 </dependency>
         
+        <dependency>
+    <groupId>com.github.sarxos</groupId>
+    <artifactId>v4l4j</artifactId>
+    <version>0.9.1-r507</version>
+</dependency>
 
 <!--  <dependency> -->
 <!--             <groupId>com.innovatrics.iface</groupId> -->
@@ -68,6 +73,14 @@
 <!-- 			<systemPath>${basedir}/lib/jna-4.1.0.jar</systemPath> -->
 <!--         </dependency> -->
 
+<!-- https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture-driver-v4l4j -->
+<dependency>
+    <groupId>com.github.sarxos</groupId>
+    <artifactId>webcam-capture-driver-v4l4j</artifactId>
+    <version>0.3.11</version>
+</dependency>
+
+
 
  <dependency>
             <groupId>com.innovatrics.iface</groupId>
@@ -90,8 +103,11 @@
 <dependency>
     <groupId>com.sun.jna</groupId>
     <artifactId>jna</artifactId>
-    <version>3.0.9</version>
+    <version>4.1.0</version>
 </dependency>
+
+<!-- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your/custom/path/ -->
+<!-- nohup java -jar gs-spring-boot-0.1.0.jar > logs.txt & -->
 
 
 

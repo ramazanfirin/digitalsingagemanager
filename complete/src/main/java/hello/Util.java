@@ -11,7 +11,7 @@ public class Util {
 				lastNotifyDate = currentTime;
 				return true;
 			}else{
-				System.out.println("no need notify");
+				//System.out.println("no need notify");
 				return false;
 			}
 		}
