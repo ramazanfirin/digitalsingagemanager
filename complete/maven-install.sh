@@ -1,0 +1,3 @@
+mvn install:install-file -Dfile=iface-connector-main-3.4.0.0.jar -DgroupId=com.innovatrics.iface -DartifactId=iface-connector-main -Dversion=3.4.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=sdk-commons-main-1.1.8.jar -DgroupId=com.innovatrics.commons -DartifactId=sdk-commons-main -Dversion=1.1.7 -Dpackaging=jar
+mvn install:install-file -Dfile=jna-4.2.0.jar -DgroupId=com.sun.jna -DartifactId=jna -Dversion=4.2.0 -Dpackaging=jar

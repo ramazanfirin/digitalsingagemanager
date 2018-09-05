@@ -85,8 +85,8 @@
  <dependency>
             <groupId>com.innovatrics.iface</groupId>
             <artifactId>iface-connector-main</artifactId>
-            <version>3.2.2.0</version>
-        </dependency>
+            <version>3.4.0.0</version>
+        </dependency>   
 <dependency>
             <groupId>com.innovatrics.commons</groupId>
             <artifactId>sdk-commons-main</artifactId>
@@ -103,7 +103,7 @@
 <dependency>
     <groupId>com.sun.jna</groupId>
     <artifactId>jna</artifactId>
-    <version>4.1.0</version>
+    <version>4.2.0</version>
 </dependency>
 
 <!-- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your/custom/path/ -->

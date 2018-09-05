@@ -77,9 +77,12 @@ public class CaptureService {
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open();
 		
-		
-		iface = IFace.getInstance();
+		//startIface();
+	}
 	
+	public void startIface() throws IOException {
+		iface = IFace.getInstance();
+		
 //		ClassLoader classLoader = getClass().getClassLoader();
 //		Path path = Paths.get(classLoader.getResource("iengine.lic").getPath());
 //		iface.initWithLicence(Files.readAllBytes(path));
@@ -92,8 +95,8 @@ public class CaptureService {
 		faceHandler.setParam(Parameter.FACEDET_SPEED_ACCURACY_MODE, FacedetSpeedAccuracyMode.FAST.toString());
 		faceHandler.setParam(Parameter.AGEGENDER_SPEED_ACCURACY_MODE, AgeGenderSpeedAccuracyMode.FAST.toString());
 		//         
+
 	}
-	
 	
 	
 	@Scheduled(fixedRate = 1000)
