@@ -77,7 +77,7 @@ public class CaptureService {
 		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open();
 		
-		//startIface();
+		startIface();
 	}
 	
 	public void startIface() throws IOException {
